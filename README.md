@@ -23,3 +23,11 @@ Pada milestone ini saya mempelajari bagaimana server dapat memvalidasi request d
 Saya memahami bahwa proses ini penting karena server harus bisa menentukan resource mana yang tersedia dan mana yang tidak. Dengan menggunakan match, kode menjadi lebih rapi dan mudah dikembangkan untuk menambah route baru di masa depan. Saya juga belajar bahwa status code 404 NOT FOUND memberi tahu browser bahwa halaman yang diminta tidak ditemukan.
 
 Melalui milestone ini saya semakin mengerti bahwa routing adalah bagian penting dari web server. Walaupun implementasi masih sederhana, konsepnya sama seperti framework web modern yang memetakan URL ke response tertentu.
+
+## Commit 4 Reflection notes
+
+Pada milestone ini saya mempelajari dampak dari web server yang masih menggunakan single thread. Dengan menambahkan route /sleep, server sengaja menunda response selama 10 detik menggunakan thread::sleep(). Hal ini digunakan untuk mensimulasikan request yang lambat atau proses berat di server.
+
+Saat saya membuka /sleep lalu mencoba membuka halaman / di tab lain, request kedua juga ikut menunggu sampai request pertama selesai. Dari percobaan ini saya memahami bahwa single-threaded server hanya bisa menangani satu request pada satu waktu. Semua request lain harus menunggu giliran.
+
+Saya menyadari bahwa kondisi seperti ini akan menjadi masalah besar jika banyak pengguna mengakses server secara bersamaan. Satu request lambat dapat menghambat seluruh sistem. Inilah alasan mengapa server modern membutuhkan concurrency atau multithreading agar beberapa request dapat diproses secara paralel.
