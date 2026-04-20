@@ -31,3 +31,11 @@ Pada milestone ini saya mempelajari dampak dari web server yang masih menggunaka
 Saat saya membuka /sleep lalu mencoba membuka halaman / di tab lain, request kedua juga ikut menunggu sampai request pertama selesai. Dari percobaan ini saya memahami bahwa single-threaded server hanya bisa menangani satu request pada satu waktu. Semua request lain harus menunggu giliran.
 
 Saya menyadari bahwa kondisi seperti ini akan menjadi masalah besar jika banyak pengguna mengakses server secara bersamaan. Satu request lambat dapat menghambat seluruh sistem. Inilah alasan mengapa server modern membutuhkan concurrency atau multithreading agar beberapa request dapat diproses secara paralel.
+
+## Commit 5 Reflection notes
+
+Pada milestone ini saya mempelajari bagaimana mengubah server single-threaded menjadi multithreaded menggunakan ThreadPool. ThreadPool berisi sejumlah worker thread yang siap menerima pekerjaan, sehingga server tidak perlu membuat thread baru setiap ada request masuk. Pendekatan ini lebih efisien dan lebih aman dibanding membuat thread tanpa batas.
+
+Saya memahami bahwa setiap koneksi yang masuk akan dikirim ke salah satu worker melalui channel, lalu worker tersebut menjalankan `handle_connection()`. Dengan cara ini beberapa request dapat diproses secara bersamaan. Saat saya menguji route `/sleep`, request lain ke `/` tetap dapat dilayani dengan cepat karena diproses oleh worker yang berbeda.
+
+Saya juga belajar penggunaan `mpsc`, `Arc`, dan `Mutex` dalam Rust untuk berbagi receiver antar thread secara aman. Milestone ini menunjukkan bagaimana concurrency dapat meningkatkan performa dan responsiveness server ketika ada banyak pengguna yang mengakses secara bersamaan.
