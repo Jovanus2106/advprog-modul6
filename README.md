@@ -39,3 +39,11 @@ Pada milestone ini saya mempelajari bagaimana mengubah server single-threaded me
 Saya memahami bahwa setiap koneksi yang masuk akan dikirim ke salah satu worker melalui channel, lalu worker tersebut menjalankan `handle_connection()`. Dengan cara ini beberapa request dapat diproses secara bersamaan. Saat saya menguji route `/sleep`, request lain ke `/` tetap dapat dilayani dengan cepat karena diproses oleh worker yang berbeda.
 
 Saya juga belajar penggunaan `mpsc`, `Arc`, dan `Mutex` dalam Rust untuk berbagi receiver antar thread secara aman. Milestone ini menunjukkan bagaimana concurrency dapat meningkatkan performa dan responsiveness server ketika ada banyak pengguna yang mengakses secara bersamaan.
+
+## Commit Bonus Reflection notes
+
+Pada bonus task ini saya mempelajari bagaimana membuat fungsi `build()` sebagai alternatif dari `new()` pada ThreadPool. Perbedaan utama adalah `build()` mengembalikan `Result`, sehingga error dapat ditangani dengan lebih baik dibanding langsung panic menggunakan `assert!`.
+
+Saya memahami bahwa desain seperti ini membuat API lebih fleksibel dan lebih sesuai dengan praktik Rust yang mengutamakan error handling secara eksplisit. Jika ukuran thread pool tidak valid, program dapat memberikan pesan error yang jelas tanpa langsung menghentikan aplikasi.
+
+Selain itu, saya melihat bahwa fungsi `new()` tetap bisa dipertahankan dengan memanggil `build().unwrap()`, sehingga kompatibilitas kode lama tetap terjaga. Dari bonus ini saya belajar pentingnya merancang constructor yang aman, reusable, dan mudah dikembangkan.
